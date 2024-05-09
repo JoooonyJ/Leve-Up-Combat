@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
         Global,
         FromCamera,
     }
+
     [Header("Movement")]
     [SerializeField] MovementMode movementMode = MovementMode.FromCamera;
     [Space(10)]
@@ -25,6 +27,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] OrientationMode orientationMode = OrientationMode.ToCameraDirection;
     [SerializeField] private float angularSpeed = 360f;
 
+    [Header("Jump")]
+    [SerializeField] float jumpSpeed = 7f;
+
+    [Header("Gravity")]
+    [SerializeField] float gravity = -9.81f;
+    [SerializeField] float minimunFallVelocity = -3f;
+
+
     [Header("Animation")]
     [SerializeField] float smoothAnimationSpeed = 4f;
 
@@ -35,6 +45,8 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     Camera mainCamera;
     Animator animator;
+
+    float verticalVelocity = 0f;
 
     private void Awake()
     {
@@ -52,9 +64,14 @@ public class PlayerController : MonoBehaviour
     Vector3 smoothedLocalMovementToApply = Vector3.zero;
     private void Update()
     {
-        Vector3 movementToApply = UpdateMovement();
-        UpdateOrientation(movementToApply);
-        UpdateAnimation(movementToApply);
+        Vector3 movementOnPlane = UpdateMovement();
+        UpdateOrientation(movementOnPlane);
+        Vector3 verticalMovement = UpdateVerticalVelocity();
+        UpdateAnimation(movementOnPlane);
+
+        Vector3 movementToApply = movementOnPlane + verticalMovement;
+        characterController.Move(movementToApply * speed * Time.deltaTime);
+
 
         Vector3 UpdateMovement()
         {
@@ -76,8 +93,6 @@ public class PlayerController : MonoBehaviour
                     }
                     break;
             }
-
-            characterController.Move(movementToApply * speed * Time.deltaTime);
             return movementToApply;
         }
 
@@ -116,8 +131,31 @@ public class PlayerController : MonoBehaviour
 
             animator.SetFloat("SideSpeed", smoothedLocalMovementToApply.x);
             animator.SetFloat("ForwardSpeed", smoothedLocalMovementToApply.z);
+            animator.SetBool("Grounded", characterController.isGrounded);
+
+            float t = Mathf.InverseLerp(jumpSpeed, -jumpSpeed, verticalVelocity);
+            animator.SetFloat("NormalizedVSpeed", t);
+        }
+
+        Vector3 UpdateVerticalVelocity()
+        {
+            if (characterController.isGrounded)
+            {
+                verticalVelocity = minimunFallVelocity;
+            }
+
+            verticalVelocity += gravity * Time.deltaTime;
+
+            if (jump.action.WasPressedThisFrame() && characterController.isGrounded)
+            {
+                verticalVelocity = jumpSpeed;
+            }
+
+            return verticalVelocity * Vector3.up;
         }
     }
+
+    
 
     private void OnDisable()
     {
