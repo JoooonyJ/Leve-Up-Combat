@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PaladinAnimatorOverrideForSword
+  m_Controller: {fileID: 9100000, guid: 23132d23fa8857a4fbb438ef0a0807e1, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: -8904154030656313402, guid: 62e2578bb1549b34c8a1de0e810f2def,
+      type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 5161f6c464923ca4fb19656ef69f4238,
+      type: 3}
+  - m_OriginalClip: {fileID: -7461880901507191363, guid: 62e2578bb1549b34c8a1de0e810f2def,
+      type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: dc9be5ae5ff4a474d9752b0f05b2998f,
+      type: 3}
+  - m_OriginalClip: {fileID: 1911809235702863410, guid: 62e2578bb1549b34c8a1de0e810f2def,
+      type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: b9d75df7e2241b5489d3073f2c1a2109,
+      type: 3}

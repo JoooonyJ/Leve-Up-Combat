@@ -30,13 +30,13 @@ TagManager:
   - 
   - 
   - 
+  - MainCamera PL1
+  - MainCameraPL2
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - MapAndGameRendering
+  - MapRendering
   m_SortingLayers:
   - name: Default
     uniqueID: 0

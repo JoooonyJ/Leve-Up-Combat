@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
         FromCamera,
     }
 
+    [Header("Camera")]
+    [SerializeField] Camera mainCamera;
+
     [Header("Movement")]
     [SerializeField] MovementMode movementMode = MovementMode.FromCamera;
     [Space(10)]
@@ -43,7 +46,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] InputActionReference jump;
 
     CharacterController characterController;
-    Camera mainCamera;
     Animator animator;
 
     float verticalVelocity = 0f;

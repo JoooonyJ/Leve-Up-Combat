@@ -11,4 +11,9 @@ public class HurtCollider : MonoBehaviour
     {
         onHit.Invoke();
     }
+
+    internal void NotifyHit(MeleeAttackByRaycast meleeAttackByRaycast)
+    {
+        onHit.Invoke();
+    }
 }

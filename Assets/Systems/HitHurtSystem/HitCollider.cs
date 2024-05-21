@@ -6,15 +6,15 @@ public class HitCollider : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        CheckColider(other);
+        CheckCollider(other);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        CheckColider(collision.collider);
+        CheckCollider(collision.collider);
     }
 
-    private void CheckColider(Collider other)
+    private void CheckCollider(Collider other)
     {
         other.GetComponent<HurtCollider>()?.NotifyHit(this);
     }
